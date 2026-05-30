@@ -156,6 +156,8 @@ export default function Participantes() {
                   Pontos <ArrowUpDown className="h-3.5 w-3.5" />
                 </button>
               </TableHead>
+              <TableHead className="text-right">Certificados</TableHead>
+              <TableHead className="text-right">Medalhas</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
@@ -200,6 +202,8 @@ export default function Participantes() {
                   </TableCell>
                   <TableCell>{formatCpf(participant.cpf)}</TableCell>
                   <TableCell>{participant.points ?? 0}</TableCell>
+                  <TableCell className="text-center">{participant.certificates ?? 0}</TableCell>
+                  <TableCell className="text-center">{participant.medals ?? 0}</TableCell>
                   <TableCell className="text-right">
                     <Tooltip>
                       <TooltipTrigger asChild>

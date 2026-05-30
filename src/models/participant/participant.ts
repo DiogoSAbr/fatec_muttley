@@ -4,4 +4,6 @@ export interface Participant {
   cpf: string;
   email?: string;
   points?: number;
+  certificates?: number;
+  medals?: number;
 }
