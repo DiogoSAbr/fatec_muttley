@@ -4,7 +4,6 @@ import type { EventUpdateRequest } from "@/models/event/event-update-request";
 
 interface UpdateEventVariables {
   event: EventUpdateRequest;
-  /** Replaced signature/background files (omitted parts keep the current image). */
   files?: UpdateEventFiles;
 }
 

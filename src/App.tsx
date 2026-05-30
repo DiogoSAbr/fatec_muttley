@@ -25,12 +25,10 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          {/* Rotas públicas (sem navbar) */}
           <Route path="/certificado/:id" element={<CertificadoPublico />} />
           <Route path="/events/:eventId/registration" element={<EventRegistration />} />
           <Route path="/events/:eventId/presence" element={<EventPresence />} />
 
-          {/* Área autenticada */}
           <Route element={<AppLayout />}>
             <Route path="/eventos" element={<Eventos />} />
             <Route path="/eventos/novo" element={<NovoEvento />} />

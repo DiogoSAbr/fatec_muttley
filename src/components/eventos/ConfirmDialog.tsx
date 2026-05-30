@@ -22,10 +22,6 @@ interface ConfirmDialogProps {
   onConfirm: () => void;
 }
 
-/**
- * Generic confirmation dialog (Save / Delete / Finalize). The confirm button
- * shows a spinner while `loading`, and the dialog cannot be dismissed mid-action.
- */
 export function ConfirmDialog({
   open,
   onOpenChange,

@@ -25,11 +25,6 @@ interface ParticipantsEditorProps {
 
 const idsOf = (list: Participant[]) => list.map((p) => p.id);
 
-/**
- * Inline editor with one sub-tab per role; pre-checks already linked people.
- * A participant may hold only ONE role, so people picked in the other two roles
- * are disabled in the current tab.
- */
 export function ParticipantsEditor({
   organizers,
   speakers,
@@ -80,7 +75,6 @@ export function ParticipantsEditor({
 interface RoleParticipantPickerProps {
   selected: Participant[];
   onChange: (value: Participant[]) => void;
-  /** Participants already assigned to another role (disabled here). */
   disabledIds: string[];
 }
 

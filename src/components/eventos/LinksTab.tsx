@@ -56,7 +56,6 @@ function LinkCard({ title, qrUrl, linkUrl, fileName }: LinkCardProps) {
       anchor.click();
       URL.revokeObjectURL(url);
     } catch {
-      // Cross-origin (S3) downloads can be blocked by CORS — open in a new tab as a fallback.
       window.open(qrUrl, "_blank", "noopener,noreferrer");
     }
   };

@@ -27,7 +27,6 @@ interface ParticipantPickerModalProps {
   title: string;
   selected: Participant[];
   onConfirm: (selected: Participant[]) => void;
-  /** Participants already assigned to another role (disabled here). */
   excludeIds?: string[];
 }
 
@@ -45,7 +44,6 @@ export function ParticipantPickerModal({
   const [working, setWorking] = useState<Participant[]>(selected);
   const [createOpen, setCreateOpen] = useState(false);
 
-  // (re)initialise the working set every time the modal is opened
   useEffect(() => {
     if (open) {
       setWorking(selected);
@@ -55,7 +53,6 @@ export function ParticipantPickerModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  // back to first page whenever the search term changes
   useEffect(() => {
     setPage(0);
   }, [debouncedSearch]);

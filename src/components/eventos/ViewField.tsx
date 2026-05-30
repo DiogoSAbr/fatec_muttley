@@ -3,12 +3,10 @@ import { cn } from "@/lib/utils";
 
 interface ViewFieldProps {
   label: string;
-  /** When empty/nullish a "-" placeholder is shown. */
   value?: ReactNode;
   className?: string;
 }
 
-/** Read-only label + value pair used across the details (view mode). */
 export function ViewField({ label, value, className }: ViewFieldProps) {
   const isEmpty =
     value === null || value === undefined || (typeof value === "string" && value.trim() === "");

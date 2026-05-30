@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getEventModalities, getEventTypes } from "@/service/eventService/event-service";
 
-/** Static lists — cached for the whole session (staleTime: Infinity). */
 export function useEventTypes() {
   return useQuery({
     queryKey: ["event-types"],

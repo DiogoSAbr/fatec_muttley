@@ -173,7 +173,6 @@ export default function NovoEvento() {
 
       <Form {...form}>
         <form onSubmit={onSubmit} className="space-y-8">
-          {/* Informações gerais */}
           <section className="space-y-4 rounded-xl border border-border bg-card p-5 shadow-sm">
             <h3 className="text-sm font-semibold text-primary">Informações Gerais</h3>
 
@@ -372,7 +371,6 @@ export default function NovoEvento() {
             />
           </section>
 
-          {/* Conteúdo */}
           <section className="space-y-4 rounded-xl border border-border bg-card p-5 shadow-sm">
             <h3 className="text-sm font-semibold text-primary">Conteúdo</h3>
 
@@ -430,7 +428,6 @@ export default function NovoEvento() {
             />
           </section>
 
-          {/* Responsáveis */}
           <section className="space-y-4 rounded-xl border border-border bg-card p-5 shadow-sm">
             <h3 className="text-sm font-semibold text-primary">Responsáveis</h3>
 
@@ -483,7 +480,6 @@ export default function NovoEvento() {
             />
           </section>
 
-          {/* Template de certificado */}
           <section className="space-y-4 rounded-xl border border-border bg-card p-5 shadow-sm">
             <h3 className="text-sm font-semibold text-primary">Template do Certificado</h3>
 

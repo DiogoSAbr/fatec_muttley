@@ -40,11 +40,9 @@ export default function Participantes() {
   const direction = (searchParams.get("direction") as Direction) || "asc";
   const urlSearch = searchParams.get("search") ?? "";
 
-  // The input is a responsive mirror; the URL is the source of truth for filters.
   const [searchInput, setSearchInput] = useState(urlSearch);
   const debouncedSearch = useDebounce(searchInput, 500);
 
-  // Push the debounced term into the URL (resetting page) once typing settles.
   useEffect(() => {
     if (debouncedSearch === urlSearch) return;
     setSearchParams(

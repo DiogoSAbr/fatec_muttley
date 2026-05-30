@@ -44,13 +44,9 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 interface PublicParticipationFormProps {
-  /** Card title shown above the form. */
   title: string;
-  /** Title shown on the confirmation screen after a successful submit. */
   successTitle: string;
-  /** Description shown on the confirmation screen after a successful submit. */
   successDescription: string;
-  /** Mutation that posts to the matching public endpoint. */
   mutation: UseMutationResult<void, unknown, ParticipationRequest>;
 }
 
@@ -68,8 +64,6 @@ export function PublicParticipationForm({
   const isPending = mutation.isPending;
 
   const onSubmit = form.handleSubmit(async (values) => {
-    // Normalize right before sending: collapse duplicate spaces, lowercase the
-    // e-mail and strip the CPF mask so only digits reach the API.
     const payload: ParticipationRequest = {
       name: values.name.trim().replace(/\s+/g, " "),
       email: values.email.trim().toLowerCase(),
@@ -79,7 +73,6 @@ export function PublicParticipationForm({
     try {
       await mutation.mutateAsync(payload);
     } catch (error) {
-      // Keep the filled fields so the user can retry without re-typing.
       toast.error(getApiErrorMessage(error, "Não foi possível concluir sua solicitação."), {
         description: "Tente novamente em alguns instantes.",
       });

@@ -20,7 +20,6 @@ export async function listParticipants({
   sortBy = "name",
   direction = "asc",
 }: ListParticipantsParams): Promise<Page<Participant>> {
-  // Spring Pageable expects the sort as a single `sort=field,direction` param.
   const { data } = await api.get("participants", {
     params: {
       page,
@@ -37,7 +36,6 @@ export async function createParticipant(payload: ParticipantRequest): Promise<Pa
   return unwrapData<Participant>(data);
 }
 
-/** GET events/participants/:participantId — paginated events the participant joined. */
 export async function getParticipantEventHistory(
   participantId: string,
   params: { page: number; size: number },

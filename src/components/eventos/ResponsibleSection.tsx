@@ -11,7 +11,6 @@ interface ResponsibleSectionProps {
   selected: Participant[];
   onChange: (selected: Participant[]) => void;
   required?: boolean;
-  /** Participants already assigned to another role (disabled in the picker). */
   excludeIds?: string[];
 }
 

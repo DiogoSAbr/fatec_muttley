@@ -49,7 +49,6 @@ export function InformacoesTab({ details, mode, form }: InformacoesTabProps) {
 
   return (
     <Card className="p-6 space-y-8">
-      {/* 1. Divulgação */}
       <Section title="Divulgação">
         <div className="grid gap-4 sm:grid-cols-2">
           {editing ? (
@@ -125,7 +124,6 @@ export function InformacoesTab({ details, mode, form }: InformacoesTabProps) {
         )}
       </Section>
 
-      {/* 2. Informações Básicas */}
       <Section title="Informações Básicas">
         <div className="grid gap-4 sm:grid-cols-2">
           {editing ? (
@@ -207,7 +205,6 @@ export function InformacoesTab({ details, mode, form }: InformacoesTabProps) {
         </div>
       </Section>
 
-      {/* 3. Local */}
       <Section title="Local">
         <div className="grid gap-4 sm:grid-cols-2">
           {editing ? (
@@ -261,7 +258,6 @@ export function InformacoesTab({ details, mode, form }: InformacoesTabProps) {
         </div>
       </Section>
 
-      {/* 4. Organização */}
       <Section title="Organização">
         {editing ? (
           <FormField
@@ -296,7 +292,6 @@ export function InformacoesTab({ details, mode, form }: InformacoesTabProps) {
         )}
       </Section>
 
-      {/* 5. Certificado */}
       <Section title="Certificado">
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">

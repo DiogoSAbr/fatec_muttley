@@ -4,24 +4,15 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface ImageReplaceFieldProps {
-  /** Existing image served by the API (shown until replaced). */
   currentUrl?: string | null;
-  /** A newly picked file that will replace the current one on save. */
   value: File | null;
   onChange: (file: File | null) => void;
   id?: string;
   className?: string;
   alt?: string;
-  /** Max-height utility for the preview, e.g. "max-h-24" | "max-h-48". */
   previewClassName?: string;
 }
 
-/**
- * Image picker for edit mode. Shows the existing image (from the API) until the
- * user selects a replacement. "Remover" only discards the newly picked file
- * (reverting to the current one) — the API keeps the previous image when no new
- * file is sent.
- */
 export function ImageReplaceField({
   currentUrl,
   value,

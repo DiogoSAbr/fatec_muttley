@@ -22,7 +22,6 @@ interface RewardModalProps {
   onOpenChange: (open: boolean) => void;
   eventId: string;
   participantIds: string[];
-  /** Called after a successful reward (e.g. to clear the table selection). */
   onRewarded: () => void;
 }
 

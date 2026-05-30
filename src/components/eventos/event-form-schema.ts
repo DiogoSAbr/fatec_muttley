@@ -10,12 +10,6 @@ const intStringInRange = (requiredMsg: string, min: number, max: number) =>
     .refine((value) => Number(value) >= min, `Deve ser no mínimo ${min}`)
     .refine((value) => Number(value) <= max, `Deve ser no máximo ${max}`);
 
-/**
- * Validation schema for the event edit form. Mirrors the create form but:
- * - no certificate background (cannot be changed on edit);
- * - `signature` is optional (only sent when replaced);
- * - competencies are an array of chips (serialized to comma-separated keywords).
- */
 export const editEventSchema = z.object({
   title: z.string().trim().min(1, "Informe o título").max(50, "Máximo de 50 caracteres"),
   startDate: z.date({

@@ -188,7 +188,6 @@ export default function EventoDetalhes() {
     }
   };
 
-  // ---- Loading ----
   if (isLoading) {
     return (
       <div className="mx-auto max-w-5xl space-y-6 animate-fade-in">
@@ -206,7 +205,6 @@ export default function EventoDetalhes() {
     );
   }
 
-  // ---- Error / not found ----
   if (isError || !details) {
     return (
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-4 py-20 text-center animate-fade-in">

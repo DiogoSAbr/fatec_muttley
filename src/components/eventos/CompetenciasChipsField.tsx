@@ -12,11 +12,6 @@ interface CompetenciasChipsFieldProps {
   className?: string;
 }
 
-/**
- * Tag/chip editor for competencies. Add with Enter or comma, remove with the X
- * (or Backspace on an empty input). Serialize with `.join(",")` for the API and
- * read back with `keywords.split(",")`.
- */
 export function CompetenciasChipsField({
   value,
   onChange,

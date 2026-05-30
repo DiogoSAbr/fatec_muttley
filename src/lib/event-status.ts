@@ -1,9 +1,7 @@
-/** Maps the API event status enum to a friendly pt-BR label + badge style. */
 export const eventStatusLabel: Record<string, string> = {
   SCHEDULED: "Agendado",
   IN_PROGRESS: "Em andamento",
   PENDING_ISSUANCE: "Emissão pendente",
-  // The backend uses FINALIZED; FINISHED is kept as an alias for safety.
   FINALIZED: "Finalizado",
   FINISHED: "Finalizado",
   CANCELLED: "Cancelado",
@@ -26,7 +24,6 @@ export function getEventStatusVariant(status: string): string {
   return eventStatusVariant[status] ?? "bg-muted text-muted-foreground border-border";
 }
 
-/** True when the event is in a terminal/finished state (handles both enum spellings). */
 export function isEventFinished(status: string): boolean {
   return status === "FINALIZED" || status === "FINISHED";
 }

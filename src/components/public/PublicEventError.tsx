@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/** Centered, friendly fallback shown when a public event page cannot be opened. */
 export function PublicEventError() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">

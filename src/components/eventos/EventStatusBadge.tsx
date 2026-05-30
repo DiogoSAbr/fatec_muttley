@@ -6,11 +6,6 @@ interface EventStatusBadgeProps {
   className?: string;
 }
 
-/**
- * Status pill for an event. Reuses the shared status → label/colour maps:
- * IN_PROGRESS renders green ("Em andamento"), FINISHED renders muted
- * ("Finalizado"), etc.
- */
 export function EventStatusBadge({ status, className }: EventStatusBadgeProps) {
   return (
     <span

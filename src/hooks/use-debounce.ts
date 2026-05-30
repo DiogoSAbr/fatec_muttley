@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-/** Returns a debounced copy of `value` that only updates after `delay` ms of stillness. */
 export function useDebounce<T>(value: T, delay = 400): T {
   const [debounced, setDebounced] = useState(value);
 

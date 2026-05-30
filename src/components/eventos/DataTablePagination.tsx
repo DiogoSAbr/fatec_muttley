@@ -1,17 +1,14 @@
 import { Button } from "@/components/ui/button";
 
 interface DataTablePaginationProps {
-  /** 0-indexed current page. */
   page: number;
   totalPages: number;
   totalElements: number;
-  /** Singular noun, e.g. "participante" → "N participante(s)". */
   itemLabel?: string;
   isFetching?: boolean;
   onPageChange: (page: number) => void;
 }
 
-/** Prev/Next footer with "Página X de Y · N item(s)". */
 export function DataTablePagination({
   page,
   totalPages,
