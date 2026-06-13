@@ -14,7 +14,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-card shadow-sm">
       <div className="container flex h-14 items-center justify-between">
-        <span className="text-lg font-bold tracking-tight text-primary">Fatec Gamifica</span>
+        <img src="/Fatec-zl.jpeg" alt="Fatec Zona Leste" className="h-9 w-auto" />
 
         <nav className="flex items-center gap-1">
           {navItems.map((item) => {

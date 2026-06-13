@@ -42,6 +42,24 @@ interface InformacoesTabProps {
 const formatPtDate = (iso?: string | null) =>
   iso ? format(parseISO(iso), "dd/MM/yyyy", { locale: ptBR }) : null;
 
+const formatPtDateTime = (iso?: string | null, hour?: string | null) => {
+  const date = formatPtDate(iso);
+  if (!date) return null;
+  return hour ? `${date} ${hour}` : date;
+};
+
+const formatDateTimeRange = (details: EventDetails) => {
+  const start = formatPtDateTime(details.startDate, details.startHour);
+  if (!start) return null;
+
+  const multiDay =
+    formatPtDate(details.endDate) && formatPtDate(details.endDate) !== formatPtDate(details.startDate);
+  if (multiDay) {
+    return `${start} - ${formatPtDateTime(details.endDate, details.endHour)}`;
+  }
+  return details.endHour ? `${start} - ${details.endHour}` : start;
+};
+
 const isUrl = (value: string) => /^https?:\/\//i.test(value.trim());
 
 export function InformacoesTab({ details, mode, form }: InformacoesTabProps) {
@@ -159,16 +177,37 @@ export function InformacoesTab({ details, mode, form }: InformacoesTabProps) {
               />
               <FormField
                 control={form.control}
+                name="startHour"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Hora Inicial</FormLabel>
+                    <FormControl>
+                      <Input type="time" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="endDate"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Data Final</FormLabel>
-                    <DatePickerField
-                      value={field.value}
-                      onChange={field.onChange}
-                      placeholder="Opcional"
-                      clearable
-                    />
+                    <DatePickerField value={field.value} onChange={field.onChange} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="endHour"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Hora Final</FormLabel>
+                    <FormControl>
+                      <Input type="time" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -176,12 +215,8 @@ export function InformacoesTab({ details, mode, form }: InformacoesTabProps) {
             </div>
           ) : (
             <ViewField
-              label="Datas"
-              value={
-                formatPtDate(details.endDate) && formatPtDate(details.endDate) !== formatPtDate(details.startDate)
-                  ? `${formatPtDate(details.startDate)} - ${formatPtDate(details.endDate)}`
-                  : formatPtDate(details.startDate)
-              }
+              label="Datas e Horários"
+              value={formatDateTimeRange(details)}
             />
           )}
 

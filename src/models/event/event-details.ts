@@ -26,6 +26,8 @@ export interface EventDetails {
   title: string;
   startDate: string;
   endDate?: string | null;
+  startHour?: string | null;
+  endHour?: string | null;
   workload: number;
   points: number;
   typeId: string;

@@ -1,7 +1,9 @@
 export interface EventRequest {
   title: string;
   startDate: string;
-  endDate?: string;
+  endDate: string;
+  startHour: string;
+  endHour: string;
   workload: number;
   capacity?: number;
   points: number;

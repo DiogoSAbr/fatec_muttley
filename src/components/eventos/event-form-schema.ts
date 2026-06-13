@@ -10,13 +10,25 @@ const intStringInRange = (requiredMsg: string, min: number, max: number) =>
     .refine((value) => Number(value) >= min, `Deve ser no mínimo ${min}`)
     .refine((value) => Number(value) <= max, `Deve ser no máximo ${max}`);
 
+const combineDateAndHour = (date: Date, hour: string) => {
+  const [h, m] = hour.split(":");
+  const result = new Date(date);
+  result.setHours(Number(h) || 0, Number(m) || 0, 0, 0);
+  return result;
+};
+
 export const editEventSchema = z.object({
   title: z.string().trim().min(1, "Informe o título").max(50, "Máximo de 50 caracteres"),
   startDate: z.date({
     required_error: "Selecione a data inicial",
     invalid_type_error: "Selecione a data inicial",
   }),
-  endDate: z.date().optional(),
+  endDate: z.date({
+    required_error: "Selecione a data final",
+    invalid_type_error: "Selecione a data final",
+  }),
+  startHour: z.string().min(1, "Informe a hora inicial"),
+  endHour: z.string().min(1, "Informe a hora final"),
   workload: intStringInRange("Informe a carga horária", 1, 99),
   capacity: z
     .string()
@@ -40,7 +52,17 @@ export const editEventSchema = z.object({
   positionSignature: z.string().trim().min(1, "Informe o cargo / descrição"),
   signature: z.union([z.instanceof(File), z.null()]).optional(),
   background: z.union([z.instanceof(File), z.null()]).optional(),
-});
+}).refine(
+  (data) => {
+    if (!(data.startDate instanceof Date) || !(data.endDate instanceof Date)) return true;
+    if (!data.startHour || !data.endHour) return true;
+    return (
+      combineDateAndHour(data.endDate, data.endHour) >=
+      combineDateAndHour(data.startDate, data.startHour)
+    );
+  },
+  { message: "A data/hora final deve ser igual ou posterior à inicial", path: ["endDate"] },
+);
 
 export type EventFormValues = z.infer<typeof editEventSchema>;
 

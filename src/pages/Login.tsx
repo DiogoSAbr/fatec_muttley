@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import fatecLogo from "@/assets/fatec-logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,7 +34,7 @@ export default function Login() {
         className="w-full max-w-sm space-y-8 rounded-xl border border-border bg-card p-8 shadow-lg"
       >
         <div className="flex justify-center">
-          <img src={fatecLogo} alt="Fatec Zona Leste" className="h-28 w-auto" />
+          <img src="/Fatec-zl.jpeg" alt="Fatec Zona Leste" className="h-28 w-auto" />
         </div>
 
         <div className="space-y-4">

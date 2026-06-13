@@ -50,13 +50,25 @@ const imageFile = (requiredMsg: string) =>
     .refine((file) => file instanceof File, requiredMsg)
     .refine((file) => !(file instanceof File) || file.type.startsWith("image/"), "Formato de imagem inválido");
 
+const combineDateAndHour = (date: Date, hour: string) => {
+  const [h, m] = hour.split(":");
+  const result = new Date(date);
+  result.setHours(Number(h) || 0, Number(m) || 0, 0, 0);
+  return result;
+};
+
 const schema = z.object({
   title: z.string().trim().min(1, "Informe o título").max(30, "Máximo de 30 caracteres"),
   startDate: z.date({
     required_error: "Selecione a data inicial",
     invalid_type_error: "Selecione a data inicial",
   }),
-  endDate: z.date().optional(),
+  endDate: z.date({
+    required_error: "Selecione a data final",
+    invalid_type_error: "Selecione a data final",
+  }),
+  startHour: z.string().min(1, "Informe a hora inicial"),
+  endHour: z.string().min(1, "Informe a hora final"),
   workload: positiveIntString("Informe a carga horária"),
   capacity: z
     .string()
@@ -77,7 +89,17 @@ const schema = z.object({
   positionSignature: z.string().trim().min(1, "Informe o cargo / descrição"),
   background: imageFile("Envie o background do certificado"),
   signature: imageFile("Envie a assinatura"),
-});
+}).refine(
+  (data) => {
+    if (!(data.startDate instanceof Date) || !(data.endDate instanceof Date)) return true;
+    if (!data.startHour || !data.endHour) return true;
+    return (
+      combineDateAndHour(data.endDate, data.endHour) >=
+      combineDateAndHour(data.startDate, data.startHour)
+    );
+  },
+  { message: "A data/hora final deve ser igual ou posterior à inicial", path: ["endDate"] },
+);
 
 type FormValues = z.infer<typeof schema>;
 
@@ -96,6 +118,8 @@ export default function NovoEvento() {
       title: "",
       startDate: undefined,
       endDate: undefined,
+      startHour: "",
+      endHour: "",
       workload: "",
       capacity: "",
       points: "",
@@ -130,7 +154,9 @@ export default function NovoEvento() {
     const event: EventRequest = {
       title: values.title.trim(),
       startDate: format(values.startDate, "yyyy-MM-dd"),
-      ...(values.endDate ? { endDate: format(values.endDate, "yyyy-MM-dd") } : {}),
+      endDate: format(values.endDate, "yyyy-MM-dd"),
+      startHour: values.startHour,
+      endHour: values.endHour,
       workload: Number(values.workload),
       ...(values.capacity ? { capacity: Number(values.capacity) } : {}),
       points: Number(values.points),
@@ -192,33 +218,58 @@ export default function NovoEvento() {
             />
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="startDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Data Inicial *</FormLabel>
-                    <DatePickerField value={field.value} onChange={field.onChange} placeholder="Selecione a data" />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="endDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Data Final</FormLabel>
-                    <DatePickerField
-                      value={field.value}
-                      onChange={field.onChange}
-                      placeholder="Opcional"
-                      clearable
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-2 gap-3">
+                <FormField
+                  control={form.control}
+                  name="startDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Data Inicial *</FormLabel>
+                      <DatePickerField value={field.value} onChange={field.onChange} placeholder="Selecione a data" />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="startHour"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Hora Inicial *</FormLabel>
+                      <FormControl>
+                        <Input type="time" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <FormField
+                  control={form.control}
+                  name="endDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Data Final *</FormLabel>
+                      <DatePickerField value={field.value} onChange={field.onChange} placeholder="Selecione a data" />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="endHour"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Hora Final *</FormLabel>
+                      <FormControl>
+                        <Input type="time" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3">
